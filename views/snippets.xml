@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="snippet_product_table" name="Tabel Dinamis Lengkap">
+        <section class="s_dynamic_table_wrapper container pt32 pb32 oe_structure_not_removable"
+                 data-snippet="s_dynamic_table" 
+                 data-name="Tabel Dinamis Lengkap">
+            
+            <div class="alert alert-info" role="alert">
+                <i class="fa fa-circle-o-notch fa-spin"></i> Loading dynamic data...
+            </div>
+
+        </section>
+    </template>
+
+    <template id="snippet_lab_cards" name="Kartu Lab (Dinamis)">
+        <section class="s_lab_cards_wrapper container pt32 pb32"
+                 data-snippet="s_lab_cards" 
+                 data-name="Kartu Lab Dinamis">
+            
+            <h2 class="text-center mb-4">Daftar Laboratorium</h2>
+            
+            <div class="form-group mb-4">
+                <input type="text" 
+                       class="form-control lab-search-input" 
+                       placeholder="Cari nama lab atau manager..."/>
+            </div>
+
+            <div class="lab_cards_container row">
+                <div class="col-12 text-center">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                    <p>Loading Labs...</p>
+                </div>
+            </div>
+
+        </section>
+    </template>
+
+
+    <template id="place_snippet_in_bar" inherit_id="website.snippets" name="Tambahkan Snippet Dinamis">
+        <xpath expr="//snippets[@id='snippet_groups']/*[1]" position="before">
+            <t snippet-group="custom_page_module_group"
+               string="Snippets Kustom"
+               t-thumbnail="/website/static/src/img/snippets_thumbs/s_banner.svg"/>
+        </xpath>
+        
+        <xpath expr="//snippets[@id='snippet_structure']/*[1]" position="before">
+            <t t-snippet="custom_page_module.snippet_product_table"
+               group="custom_page_module_group"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_structure']/*[1]" position="before">
+            <t t-snippet="custom_page_module.snippet_lab_cards"
+               group="custom_page_module_group"/>
+        </xpath>
+    </template>
+
+</odoo>

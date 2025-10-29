@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="department_detail_page" name="Halaman Detail Lab (Profil Profesional)">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure_normalize">                              
+                <div class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">  
+
+                            <h1 class="text-center pb-2"> <t t-esc="lab.name"/></h1>                                            
+                            <hr/>
+                            <div class="oe_structure">
+                                <section class="mb-5">                                    
+                                    <div class="row g-4">
+                                      <div class="col-lg-12 text-center">
+    <div class="card h-100 shadow-sm border-0">
+        <img src="/custom_page_module/static/src/img/lab_bg.jpg" 
+             class="card-img-top" 
+             alt="Alat 1" 
+             style="height: 250px; object-fit: cover;"/>
+    </div>
+</div>
+                                  
+                                    </div>
+                                </section>
+                            </div>                           
+                            <div class="oe_structure">
+                                <section class="mb-5">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Peralatan Unggulan</h2>
+                                    <div class="row g-4">
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_1.jpg" class="card-img-top" alt="Alat 1" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Spektrometer Massa</h5>
+                                                    <p class="card-text text-muted small">Model: XYZ-2000. Untuk analisis molekuler presisi tinggi.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_2.jpg" class="card-img-top" alt="Alat 2" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Mikroskop Elektron (SEM)</h5>
+                                                    <p class="card-text text-muted small">Model: SEM-Pro. Observasi permukaan material skala nano.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_3.jpg" class="card-img-top" alt="Alat 3" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">HPLC</h5>
+                                                    <p class="card-text text-muted small">Model: Agilent 1200. Pemisahan dan kuantifikasi senyawa.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>                           
+                            <div class="oe_structure">
+                                <section class="mb-5">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Layanan Pengujian</h2>
+                                    <div class="list-group shadow-sm">
+                                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <h5 class="mb-1">Analisis Logam Berat (AAS)</h5>
+                                                <p class="mb-1 text-muted small">Pengujian sampel air, tanah, dan makanan.</p>
+                                            </div>
+                                            <i class="fa fa-chevron-right text-muted"></i>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <h5 class="mb-1">Uji Mikrobiologi</h5>
+                                                <p class="mb-1 text-muted small">Kontaminasi TPC, E. coli, dan Salmonella.</p>
+                                            </div>
+                                            <i class="fa fa-chevron-right text-muted"></i>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <h5 class="mb-1">Pengujian Komposisi Kimia (GC-MS)</h5>
+                                                <p class="mb-1 text-muted small">Analisis senyawa volatil dan semi-volatil.</p>
+                                            </div>
+                                            <i class="fa fa-chevron-right text-muted"></i>
+                                        </a>
+                                    </div>
+                                </section>
+                            </div> 
+                            <div class="oe_structure">
+                                <section class="mb-5">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Tim Profesional Kami</h2>
+                                    <div class="row g-4">
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_1.jpg" class="card-img-top" alt="Alat 1" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">orang 1</h5>
+                                                    <p class="card-text text-muted small">Model: XYZ-2000. Untuk analisis molekuler presisi tinggi.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_2.jpg" class="card-img-top" alt="Alat 2" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">orang 2</h5>
+                                                    <p class="card-text text-muted small">Model: SEM-Pro. Observasi permukaan material skala nano.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <img src="/custom_page_module/static/src/img/alat_3.jpg" class="card-img-top" alt="Alat 3" style="height: 180px; object-fit: cover;"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">orang 3</h5>
+                                                    <p class="card-text text-muted small">Model: Agilent 1200. Pemisahan dan kuantifikasi senyawa.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>                         
+                            <div class="oe_structure">
+                                <section class="mb-5">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Fungsional</h2>
+                                    <div class="row g-4">
+                                        <ul class="list-unstyled">
+                                                <li class="d-flex mb-2">
+                                                    <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                                    <span>Penelitian &amp; Pengembangan (R&amp;D)</span>
+                                                </li>
+                                                <li class="d-flex mb-2">
+                                                    <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                                    <span>Kontrol Kualitas (QC)</span>
+                                                </li>
+                                                <li class="d-flex mb-2">
+                                                    <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                                    <span>Pengujian Lingkungan</span>
+                                                </li>
+                                                <li class="d-flex mb-2">
+                                                    <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                                    <span>Kalibrasi Alat</span>
+                                                </li>
+                                                <li class="d-flex mb-2">
+                                                    <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                                    <span>Validasi Metode Analisis</span>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="oe_structure">
+                                <section class="mb-5">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Lokasi Kami</h2>
+                                    <div class="row g-4">
+                                         <p class="card-text text-muted">
+                                                        Jl. Sains Teknologi No. 1<br/>
+                                                        Kawasan Industri Cipta, Blok A<br/>
+                                                        Jakarta, Indonesia 12345
+                                                    </p>
+                                    </div>
+                                </section>
+                            </div>                                                        
+
+                        </div> 
+                        </div> 
+                        </div> 
+                        </div> 
+                        </t>
+    </template>
+</odoo>

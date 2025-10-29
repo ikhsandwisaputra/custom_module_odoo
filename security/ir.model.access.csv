@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_public_product_template,access.public.product.template,product.model_product_template,base.group_public,1,0,0,0
+access_public_hr_employee,access.public.hr.employee,hr.model_hr_employee,base.group_public,1,0,0,0
+access_public_hr_department,access.public.hr.department,hr.model_hr_department,base.group_public,1,0,0,0
+access_public_res_company,access.public.res.company,base.model_res_company,base.group_public,1,0,0,0
