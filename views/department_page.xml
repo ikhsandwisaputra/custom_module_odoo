@@ -25,6 +25,22 @@
                                 </section>
                             </div>                           
                             <div class="oe_structure">
+                                <section class="mb-5 s_product_cards_wrapper">
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Peralatan Unggulan</h2>
+                                    
+                                    <div class="product_category_filters mb-4 text-center">
+                                        <i class="fa fa-circle-o-notch fa-spin"></i> Loading filters...
+                                    </div>
+                                    
+                                    <div class="product_cards_container row g-4">
+                                        <div class="col-12 text-center">
+                                            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                                            <p>Loading Products...</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Peralatan Unggulan</h2>
                                     <div class="row g-4">
@@ -57,7 +73,7 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>                           
+                            </div>                            -->
                             <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Layanan Pengujian</h2>

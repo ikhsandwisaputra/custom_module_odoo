@@ -293,3 +293,24 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
 
+    @http.route('/api/get_product_categories', type='json', auth='public', website=True)
+    def get_product_categories(self, **kwargs):
+        """API untuk mendapatkan semua kategori produk publik"""
+        try:
+            # Kita ambil kategori yang 'parent_id'-nya tidak di-set (kategori root)
+            # atau Anda bisa ambil semua kategori jika lebih suka
+            categories = request.env['product.public.category'].sudo().search([])
+            
+            result = []
+            for cat in categories:
+                result.append({
+                    'id': cat.id,
+                    'name': cat.name,
+                })
+            
+            return {
+                'success': True,
+                'data': result,
+            }
+        except Exception as e:
+            return { 'success': False, 'error': str(e) }

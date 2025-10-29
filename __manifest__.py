@@ -31,6 +31,7 @@
         'web.assets_frontend': [
             'custom_page_module/static/src/js/dynamic_snippet.js',
             'custom_page_module/static/src/js/lab_card_snippet.js',
+            'custom_page_module/static/src/js/product_card_snippet.js',
             'custom_page_module/static/src/xml/dynamic_content.xml',
         ],
     },

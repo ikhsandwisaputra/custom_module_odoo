@@ -167,5 +167,41 @@
             </div>
         </t>
     </t>
+    <t t-name="custom_page_module.ProductCardRenderer" name="Product Card Renderer">
+        <t t-if="products &amp;&amp; products.length > 0">
+            <t t-foreach="products" t-as="product" t-key="product.id">
+                <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+                    <div class="card h-100 shadow-sm position-relative">
+                        <img t-if="product.image" t-att-src="product.image" class="card-img-top" 
+                             style="height: 180px; object-fit: cover;"/>
+                        <div t-else="" class="card-img-top d-flex align-items-center justify-content-center bg-light" 
+                             style="height: 180px;">
+                            <i class="fa fa-shopping-cart fa-3x text-muted"></i>
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">
+                                <a t-att-href="product.url" class="stretched-link text-decoration-none">
+                                    <t t-esc="product.name"/>
+                                </a>
+                            </h5>
+                            <div class="mt-auto">
+                                <span class="card-text fw-bold text-primary fs-5">
+                                    <t t-esc="product.price" t-options="{'widget': 'monetary', 'display_currency': 55}"/> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+        <t t-else="">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    Produk tidak ditemukan untuk kategori ini.
+                </div>
+            </div>
+        </t>
+    </t>
+
 
 </templates>
