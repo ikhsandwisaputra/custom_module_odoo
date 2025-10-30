@@ -314,3 +314,172 @@ class DynamicDataController(http.Controller):
             }
         except Exception as e:
             return { 'success': False, 'error': str(e) }
+        
+        # ==========================================================
+    @http.route('/api/get_department_employees', type='json', auth='public', website=True)
+    def get_department_employees(self, department_id=0, **kwargs):
+        """
+        API untuk mendapatkan data karyawan (tim) yang difilter
+        berdasarkan department_id yang spesifik.
+        """
+        try:
+            if not department_id:
+                return {'success': True, 'data': [], 'total': 0}
+
+            # Domain untuk memfilter karyawan berdasarkan departemen
+            domain = [('department_id', '=', int(department_id))]
+            
+            employees = request.env['hr.employee'].sudo().search(domain, order='name asc')
+            
+            result = []
+            for emp in employees:
+                result.append({
+                    'id': emp.id,
+                    'name': emp.name,
+                    # Kita ambil gambar yang lebih besar untuk profil
+                    'image': '/web/image/hr.employee/%s/image_1024' % emp.id if emp.image_1024 else False,
+                    'job_title': emp.job_title or '-',
+                    # 'Fakultas' kita asumsikan adalah company
+                    'fakultas': emp.company_id.name if emp.company_id else '-',
+                    'departemen': emp.department_id.name if emp.department_id else '-'
+                })
+            
+            return {
+                'success': True,
+                'data': result,
+                'total': len(result)
+            }
+        except Exception as e:
+            return { 'success': False, 'error': str(e) }
+        
+    @http.route('/api/get_all_locations', type='json', auth='public', website=True)
+    def get_all_locations(self, **kwargs):
+        """
+        API untuk mendapatkan data semua 'res.company' (fakultas)
+        beserta alamat lengkapnya.
+        """
+        try:
+            companies = request.env['res.company'].sudo().search([])
+            
+            result = []
+            for company in companies:
+                # Kita akan format alamatnya di sini agar rapi
+                address_parts = [
+                    company.street,
+                    company.street2,
+                    company.city,
+                    company.state_id.name,
+                    company.zip,
+                    company.country_id.name
+                ]
+                
+                # Gabungkan semua bagian alamat yang tidak kosong
+                full_address = ', '.join(part for part in address_parts if part)
+                
+                result.append({
+                    'id': company.id,
+                    'name': company.name,
+                    'phone': company.phone or '-',
+                    'email': company.email or '-',
+                    'full_address': full_address,
+                    # Buat URL Google Maps untuk 'call to action'
+                    'map_url': f"https://maps.google.com/?q={full_address.replace(' ', '+')}"
+                })
+            
+            return {
+                'success': True,
+                'data': result,
+                'total': len(result)
+            }
+        except Exception as e:
+            return { 'success': False, 'error': str(e) }
+
+    @http.route('/api/get_products_grouped_by_category', type='json', auth='public', website=True)
+    def get_products_grouped_by_category(self, **kwargs):
+        """
+        API untuk mendapatkan produk yang sudah dikelompokkan 
+        berdasarkan kategori publik mereka.
+        Ini lebih efisien daripada JS yang melakukan pengelompokkan.
+        """
+        try:
+            # UBAH 1: Cari berdasarkan 'categ_id'
+            domain = [('website_published', '=', True), ('categ_id', '!=', False)]
+            # UBAH 2: Urutkan berdasarkan 'categ_id'
+            products = request.env['product.template'].sudo().search(domain, order='categ_id, name')
+            
+            # Kita akan gunakan map untuk mengelompokkan
+            categories_map = {}
+            
+            for product in products:
+                # UBAH 3: Cek 'categ_id'
+                if not product.categ_id:
+                    continue
+                
+                # UBAH 4: Ambil 'categ_id' (ini bukan list, jadi tidak perlu [0])
+                category = product.categ_id
+                
+                # Siapkan data produk
+                product_data = {
+                    'id': product.id,
+                    'name': product.name,
+                    'price': product.list_price,
+                    'url': product.website_url or '/shop/product/%s' % product.id,
+                    'image': '/web/image/product.template/%s/image_256' % product.id
+                }
+                
+                # Masukkan ke map
+                if category.id not in categories_map:
+                    categories_map[category.id] = {
+                        'category_id': category.id,
+                        'category_name': category.name,
+                        'products': []
+                    }
+                
+                categories_map[category.id]['products'].append(product_data)
+            
+            # Ubah map menjadi list (format JSON yang lebih baik)
+            result = list(categories_map.values())
+            
+            return {
+                'success': True,
+                'data': result,
+            }
+        except Exception as e:
+            return { 'success': False, 'error': str(e) }
+        
+
+    @http.route('/api/get_department_functions', type='json', auth='public', website=True)
+    def get_department_functions(self, department_id=0, **kwargs):
+        """
+        API untuk mendapatkan data 'lab.function' (tags) yang 
+        dimiliki oleh departemen tertentu.
+        """
+        try:
+            if not department_id:
+                return {'success': True, 'data': [], 'total': 0}
+
+            # 1. Ambil departemen yang dimaksud
+            dept = request.env['hr.department'].sudo().browse(int(department_id))
+            
+            if not dept.exists():
+                return {'success': True, 'data': [], 'total': 0}
+
+            # 2. Loop melalui field 'function_ids' yang Anda buat
+            #   
+            result = []
+            for func in dept.function_ids:
+                result.append({
+                    'id': func.id,
+                    'name': func.name,
+                    # Kita juga ambil 'color' untuk styling badge
+                    #
+                    'color': func.color 
+                })
+            
+            return {
+                'success': True,
+                'data': result,
+                'total': len(result)
+            }
+        except Exception as e:
+            return { 'success': False, 'error': str(e) }

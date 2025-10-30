@@ -7,19 +7,19 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-12">  
 
-                            <h1 class="text-center pb-2"> <t t-esc="lab.name"/></h1>                                            
+                            <h3 class="text-center pb-2"> <t t-esc="lab.name"/></h3>                                            
                             <hr/>
                             <div class="oe_structure">
                                 <section class="mb-5">                                    
                                     <div class="row g-4">
                                       <div class="col-lg-12 text-center">
-    <div class="card h-100 shadow-sm border-0">
-        <img src="/custom_page_module/static/src/img/lab_bg.jpg" 
-             class="card-img-top" 
-             alt="Alat 1" 
-             style="height: 250px; object-fit: cover;"/>
-    </div>
-</div>
+                                        <div class="card h-100 shadow-sm border-0">
+                                            <img src="/custom_page_module/static/src/img/lab_bg.jpg" 
+                                                class="card-img-top" 
+                                                alt="Alat 1" 
+                                                style="height: 250px; object-fit: cover;"/>
+                                        </div>
+                                    </div>
                                   
                                     </div>
                                 </section>
@@ -74,7 +74,7 @@
                                     </div>
                                 </section>
                             </div>                            -->
-                            <div class="oe_structure">
+                            <!-- <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Layanan Pengujian</h2>
                                     <div class="list-group shadow-sm">
@@ -101,8 +101,22 @@
                                         </a>
                                     </div>
                                 </section>
-                            </div> 
-                            <div class="oe_structure">
+                            </div>  -->
+
+                          <div class="oe_structure">
+                                <section class="mb-5 s_grouped_products_wrapper">
+                                    
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Layanan Pengujian</h2>
+                                    
+                                    <div class="grouped_products_container">
+                                        <div class="col-12 text-center">
+                                            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                                            <p>Memuat Layanan...</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Tim Profesional Kami</h2>
                                     <div class="row g-4">
@@ -135,8 +149,22 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>                         
+                            </div>                          -->
                             <div class="oe_structure">
+                                <section class="mb-5 s_department_team_wrapper" 
+                                         t-att-data-department-id="lab.id">
+                                    
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Tim Profesional Kami</h2>
+                                    
+                                    <div class="team_cards_container row g-4">
+                                        <div class="col-12 text-center">
+                                            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                                            <p>Memuat Tim Profesional...</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Fungsional</h2>
                                     <div class="row g-4">
@@ -164,8 +192,22 @@
                                             </ul>
                                     </div>
                                 </section>
-                            </div>
+                            </div> -->
                             <div class="oe_structure">
+                                <section class="mb-5 s_department_functions_wrapper" 
+                                         t-att-data-department-id="lab.id">
+                                    
+                                    <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Fungsional</h2>
+                                    
+                                    <div class="functions_container row g-4">
+                                        <div class="col-12 text-center">
+                                            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                                            <p>Memuat Fungsional...</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- <div class="oe_structure">
                                 <section class="mb-5">
                                     <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Lokasi Kami</h2>
                                     <div class="row g-4">
@@ -176,8 +218,20 @@
                                                     </p>
                                     </div>
                                 </section>
-                            </div>                                                        
-
+                            </div>                                                         -->
+<div class="oe_structure">
+                                <section class="mb-5 s_all_locations_wrapper">
+                                    
+                                  <h2 class="fw-bold text-primary border-bottom pb-2 mb-4">Lokasi Fakultas &amp; Kampus</h2>
+                                    
+                                    <div class="locations_container row g-4">
+                                        <div class="col-12 text-center">
+                                            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+                                            <p>Memuat Lokasi...</p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div> 
                         </div> 
                         </div> 

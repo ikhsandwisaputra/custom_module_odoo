@@ -125,39 +125,34 @@
     <!-- ==== PERUBAHAN DI BAWAH INI ==== -->
     <t t-name="custom_page_module.LabCardRenderer" name="Lab Card Renderer">
         <t t-if="labs &amp;&amp; labs.length > 0">
-            <t t-foreach="labs" t-as="lab" t-key="lab.id">
-                <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
-                    <!-- 
-                      PERUBAHAN 1: 
-                      Tambahkan 'position-relative' pada card
-                      Ini penting agar 'stretched-link' berfungsi
-                    -->
-                    <div class="card h-100 shadow-sm position-relative">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-primary">
-                                <!-- 
-                                  PERUBAHAN 2: 
-                                  Bungkus judul dengan tag <a>
-                                  - t-att-href="lab.url" mengambil URL dari API
-                                  - class="stretched-link" (Bootstrap) membuat SELURUH card bisa diklik
-                                  - class="text-decoration-none" agar judul tidak bergaris bawah
-                                -->
-                                <a t-att-href="lab.url" class="stretched-link text-decoration-none">
-                                    <t t-esc="lab.name"/>
-                                </a>
-                            </h5>
-                            <p class="card-text mb-1">
-                                <strong>Fakultas:</strong>
-                                <span class="text-muted"><t t-esc="lab.fakultas"/></span>
-                            </p>
-                            <p class="card-text">
-                                <strong>Manager:</strong>
-                                <span class="text-muted"><t t-esc="lab.manager"/></span>
-                            </p>
-                        </div>
-                    </div>
+           <t t-foreach="labs" t-as="lab" t-key="lab.id">
+    <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+        <div class="card border border-primary shadow-sm position-relative w-100 d-flex flex-column h-100"
+             style="transition: all 0.3s ease; cursor: pointer;"
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)';">
+            <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                <div>
+                    <h5 class="card-title text-primary mb-3">
+                        <a t-att-href="lab.url" class="stretched-link text-decoration-none">
+                            <t t-esc="lab.name"/>
+                        </a>
+                    </h5>
+                    <p class="card-text mb-1">
+                        <strong>Fakultas:</strong>
+                        <span class="text-muted"><t t-esc="lab.fakultas"/></span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Manager:</strong>
+                        <span class="text-muted"><t t-esc="lab.manager"/></span>
+                    </p>
                 </div>
-            </t>
+                <div class="mt-auto"></div>
+            </div>
+        </div>
+    </div>
+</t>
+
         </t>
         <t t-else="">
             <div class="col-12">
@@ -169,30 +164,35 @@
     </t>
     <t t-name="custom_page_module.ProductCardRenderer" name="Product Card Renderer">
         <t t-if="products &amp;&amp; products.length > 0">
-            <t t-foreach="products" t-as="product" t-key="product.id">
-                <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
-                    <div class="card h-100 shadow-sm position-relative">
-                        <img t-if="product.image" t-att-src="product.image" class="card-img-top" 
-                             style="height: 180px; object-fit: cover;"/>
-                        <div t-else="" class="card-img-top d-flex align-items-center justify-content-center bg-light" 
-                             style="height: 180px;">
-                            <i class="fa fa-shopping-cart fa-3x text-muted"></i>
-                        </div>
-                        
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">
-                                <a t-att-href="product.url" class="stretched-link text-decoration-none">
-                                    <t t-esc="product.name"/>
-                                </a>
-                            </h5>
-                            <div class="mt-auto">
-                                <span class="card-text fw-bold text-primary fs-5">
-                                    <t t-esc="product.price" t-options="{'widget': 'monetary', 'display_currency': 55}"/> </span>
-                            </div>
-                        </div>
-                    </div>
+           <t t-foreach="products" t-as="product" t-key="product.id">
+    <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+        <div class="card border border-primary shadow-sm position-relative w-100 d-flex flex-column h-100"
+             style="transition: all 0.3s ease; cursor: pointer;"
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)';">
+
+            <!-- Gambar Produk -->
+            <t t-if="product.image">
+                <img t-att-src="product.image" class="card-img-top" style="height: 180px; object-fit: cover;"/>
+            </t>
+            <t t-else="">
+                <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 180px;">
+                    <i class="fa fa-shopping-cart fa-3x text-muted"></i>
                 </div>
             </t>
+
+            <!-- Isi Card -->
+            <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                <div>
+                    <h5 class="card-title mb-3">                        
+                            <t t-esc="product.name"/>                        
+                    </h5>
+                </div>                
+            </div>
+        </div>
+    </div>
+</t>
+
         </t>
         <t t-else="">
             <div class="col-12">
@@ -203,5 +203,158 @@
         </t>
     </t>
 
+<t t-name="custom_page_module.EmployeeCardRenderer" name="Employee Card Renderer">
+        <t t-if="employees &amp;&amp; employees.length > 0">
+            <t t-foreach="employees" t-as="emp" t-key="emp.id">
+                <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+                    <div class="card h-100 shadow-sm text-center border-0">
+                        <img t-if="emp.image" t-att-src="emp.image" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"/>
+                        <div t-else="" class="card-img-top d-flex align-items-center justify-content-center bg-light" 
+                             style="height: 200px;">
+                            <i class="fa fa-user fa-4x text-muted"></i>
+                        </div>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title text-primary mb-1"><t t-esc="emp.name"/></h5>
+                            <p class="card-text fw-bold text-muted small"><t t-esc="emp.job_title"/></p>
+                            
+                            <p class="card-text text-muted small mb-0">
+                                <i class="fa fa-building-o me-2"/>
+                                <t t-esc="emp.fakultas"/>
+                            </p>
+                            <p class="card-text text-muted small">
+                                <i class="fa fa-users me-2"/>
+                                <t t-esc="emp.departemen"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+        <t t-else="">
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    <i class="fa fa-info-circle me-2"/>
+                    Belum ada anggota tim yang terdaftar di departemen ini.
+                </div>
+            </div>
+        </t>
+    </t>
+
+<t t-name="custom_page_module.AllLocationsRenderer" name="All Locations Renderer">
+        <t t-if="locations &amp;&amp; locations.length > 0">
+            <t t-foreach="locations" t-as="loc" t-key="loc.id">
+                <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body d-flex flex-column border-primary border">
+                            <h5 class="card-title text-primary"><t t-esc="loc.name"/></h5>
+                            
+                            <p class="card-text text-muted small mb-2">
+                                <i class="fa fa-map-marker me-2"/>
+                                <t t-esc="loc.full_address"/>
+                            </p>
+                            <p class="card-text text-muted small mb-1">
+                                <i class="fa fa-phone me-2"/>
+                                <t t-esc="loc.phone"/>
+                            </p>
+                            <p class="card-text text-muted small">
+                                <i class="fa fa-envelope-o me-2"/>
+                                <t t-esc="loc.email"/>
+                            </p>
+
+                            <div class="mt-auto pt-3">
+                                <a t-att-href="loc.map_url" target="_blank" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    Lihat di Maps<i class="fa fa-external-link ms-1"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+        <t t-else="">
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    Belum ada data lokasi (company) yang terdaftar.
+                </div>
+            </div>
+        </t>
+    </t>
+
+
+<t t-name="custom_page_module.GroupedProductListRenderer" name="Grouped Product List Renderer">
+        <t t-if="groups &amp;&amp; groups.length > 0">
+            <t t-foreach="groups" t-as="group" t-key="group.category_id">
+                
+                <h4 class="mt-4 mb-3 text-primary" style="font-weight: 600;">
+                    <t t-esc="group.category_name"/>
+                </h4>
+                
+                <div class="row g-4 mb-4">
+                    <t t-if="group.products &amp;&amp; group.products.length > 0">
+                        <t t-foreach="group.products" t-as="product" t-key="product.id">
+                            
+                            <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+                                
+                                <div class="card border border-primary shadow-sm position-relative w-100 d-flex flex-column h-100"
+                                     style="transition: all 0.3s ease; cursor: pointer;"
+                                     onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.2)';"
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 2px rgba(0,0,0,0.05)';"> <t t-if="product.image">
+                                        <img t-att-src="product.image" class="card-img-top" style="height: 180px; object-fit: cover;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 180px;">
+                                            <i class="fa fa-shopping-cart fa-3x text-muted"></i>
+                                        </div>
+                                    </t>
+
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">
+                                            <a t-att-href="product.url" class="stretched-link text-decoration-none">
+                                                <t t-esc="product.name"/>
+                                            </a>
+                                        </h5>
+                                                                               
+                                    </div>
+                                </div> </div> </t>
+                    </t>
+                    <t t-else="">
+                        <div class="col-12">
+                            <p class="text-muted fst-italic">Tidak ada layanan yang terdaftar untuk kategori ini.</p>
+                        </div>
+                    </t>
+                </div> </t> </t>
+        <t t-else="">
+            <div class="alert alert-info" role="alert">
+                Belum ada layanan pengujian (produk) yang terdaftar.
+            </div>
+        </t>
+    </t>    
+
+<t t-name="custom_page_module.FunctionBadgesRenderer" name="Function Badges Renderer">
+        <div class="col-12">
+            <t t-if="functions &amp;&amp; functions.length > 0">
+                <div class="d-flex flex-wrap" style="gap: 8px;">
+                    <t t-foreach="functions" t-as="func" t-key="func.id">
+                        <span t-attf-class="badge o_color_#{func.color or 0} text-dark p-2 fs-6">
+                            <i class="fa fa-tag me-1"/>
+                            <t t-esc="func.name"/>
+                        </span>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="alert alert-info" role="alert">
+                    <i class="fa fa-info-circle me-2"/>
+                    Belum ada fungsi yang terdaftar untuk departemen ini.
+                </div>
+            </t>
+        </div>
+    </t>
+
 
 </templates>
+
