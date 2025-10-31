@@ -19,7 +19,7 @@ class DynamicDataController(http.Controller):
 
     # ==========================================================
     # KONTROLER 1: Untuk URL SLUG/NAMA (PUBLIK)
-    # Ini akan menangani URL seperti /lab/lab-jaringan-12
+    # ... (Tidak ada perubahan di sini) ...
     # ==========================================================
     @http.route('/lab/<string:lab_slug>', type='http', auth='public', website=True, sitemap=True)
     def lab_detail_page_slug(self, lab_slug, **kwargs):
@@ -93,7 +93,7 @@ class DynamicDataController(http.Controller):
 
     # ==========================================================
     # KONTROLER 2: Untuk URL ID (PUBLIK)
-    # Ini akan menangani URL seperti /lab/12
+    # ... (Tidak ada perubahan di sini) ...
     # ==========================================================
     @http.route('/lab/<int:lab_id>', type='http', auth='public', website=True, sitemap=False)
     def lab_detail_page_id(self, lab_id, **kwargs):
@@ -126,7 +126,7 @@ class DynamicDataController(http.Controller):
 
     # ==========================================================
     # API: get_labs
-    # INI YANG PALING PENTING: API harus membuat URL SLUG
+    # ... (Tidak ada perubahan di sini) ...
     # ==========================================================
     @http.route('/api/get_labs', type='json', auth='public', website=True)
     def get_labs(self, search='', limit=20, **kwargs):
@@ -171,8 +171,8 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
 
-# ==========================================================
-    # BARU: API UNTUK KARTU PRODUK (DENGAN FILTER)
+    # ==========================================================
+    # MODIFIKASI UNTUK "PRODUK UNGGULAN"
     # ==========================================================
     @http.route('/api/get_product_cards', type='json', auth='public', website=True)
     def get_product_cards(self, search='', category_id=0, **kwargs):
@@ -184,8 +184,12 @@ class DynamicDataController(http.Controller):
                 domain.append(('name', 'ilike', search))
                 
             if category_id:
-                # Menggunakan 'child_of' untuk mencakup sub-kategori
-                domain.append(('public_categ_ids', 'child_of', int(category_id)))
+                # ===============================================================
+                # --- PERUBAHAN 1 DARI 3 ---
+                # Mengganti domain dari 'public_categ_ids' ke 'category_ids'
+                # Operator '=' sudah benar untuk mencari ID dalam field Many2many
+                domain.append(('category_ids', '=', int(category_id)))
+                # ===============================================================
 
             products = request.env['product.template'].sudo().search(domain, order='name asc')
             
@@ -210,6 +214,7 @@ class DynamicDataController(http.Controller):
         except Exception as e:
             return { 'success': False, 'error': str(e) }
 
+    # ... (API 'get_products' tidak berubah) ...
     @http.route('/api/get_products', type='json', auth='public', website=True)
     def get_products(self, limit=10):
         """API untuk mendapatkan data produk real-time"""
@@ -231,6 +236,7 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
     
+    # ... (API 'get_employees' tidak berubah) ...
     @http.route('/api/get_employees', type='json', auth='public', website=True)
     def get_employees(self, limit=10):
         """API untuk mendapatkan data karyawan real-time"""
@@ -252,6 +258,7 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
     
+    # ... (API 'get_companies' tidak berubah) ...
     @http.route('/api/get_companies', type='json', auth='public', website=True)
     def get_companies(self, limit=10):
         """API untuk mendapatkan data perusahaan real-time"""
@@ -274,6 +281,7 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
     
+    # ... (API 'get_departments' tidak berubah) ...
     @http.route('/api/get_departments', type='json', auth='public', website=True)
     def get_departments(self, limit=10):
         """API untuk mendapatkan data departemen real-time"""
@@ -293,13 +301,19 @@ class DynamicDataController(http.Controller):
             'total': len(result)
         }
 
+    # ==========================================================
+    # MODIFIKASI UNTUK FILTER "PRODUK UNGGULAN"
+    # ==========================================================
     @http.route('/api/get_product_categories', type='json', auth='public', website=True)
     def get_product_categories(self, **kwargs):
         """API untuk mendapatkan semua kategori produk publik"""
         try:
-            # Kita ambil kategori yang 'parent_id'-nya tidak di-set (kategori root)
-            # atau Anda bisa ambil semua kategori jika lebih suka
-            categories = request.env['product.public.category'].sudo().search([])
+            # ===============================================================
+            # --- PERUBAHAN 2 DARI 3 ---
+            # Mengganti model dari 'product.public.category' ke 'product.category'
+            # Ini adalah model yang digunakan oleh field Many2many baru kita
+            categories = request.env['product.category'].sudo().search([])
+            # ===============================================================
             
             result = []
             for cat in categories:
@@ -315,7 +329,7 @@ class DynamicDataController(http.Controller):
         except Exception as e:
             return { 'success': False, 'error': str(e) }
         
-        # ==========================================================
+    # ... (API 'get_department_employees' tidak berubah) ...
     @http.route('/api/get_department_employees', type='json', auth='public', website=True)
     def get_department_employees(self, department_id=0, **kwargs):
         """
@@ -352,6 +366,7 @@ class DynamicDataController(http.Controller):
         except Exception as e:
             return { 'success': False, 'error': str(e) }
         
+    # ... (API 'get_all_locations' tidak berubah) ...
     @http.route('/api/get_all_locations', type='json', auth='public', website=True)
     def get_all_locations(self, **kwargs):
         """
@@ -394,6 +409,9 @@ class DynamicDataController(http.Controller):
         except Exception as e:
             return { 'success': False, 'error': str(e) }
 
+    # ==========================================================
+    # MODIFIKASI UNTUK "LAYANAN PENGUJIAN"
+    # ==========================================================
     @http.route('/api/get_products_grouped_by_category', type='json', auth='public', website=True)
     def get_products_grouped_by_category(self, **kwargs):
         """
@@ -402,23 +420,24 @@ class DynamicDataController(http.Controller):
         Ini lebih efisien daripada JS yang melakukan pengelompokkan.
         """
         try:
-            # UBAH 1: Cari berdasarkan 'categ_id'
-            domain = [('website_published', '=', True), ('categ_id', '!=', False)]
-            # UBAH 2: Urutkan berdasarkan 'categ_id'
-            products = request.env['product.template'].sudo().search(domain, order='categ_id, name')
+            # ===============================================================
+            # --- PERUBAHAN 3 DARI 3 (TERDIRI DARI BEBERAPA BAGIAN) ---
+            
+            # UBAH 3.1: Cari berdasarkan 'category_ids' (bukan 'categ_id')
+            domain = [('website_published', '=', True), ('category_ids', '!=', False)]
+            
+            # UBAH 3.2: Hapus order by 'categ_id' karena tidak efisien di m2m
+            products = request.env['product.template'].sudo().search(domain, order='name')
             
             # Kita akan gunakan map untuk mengelompokkan
             categories_map = {}
             
             for product in products:
-                # UBAH 3: Cek 'categ_id'
-                if not product.categ_id:
+                # UBAH 3.3: Cek 'category_ids'
+                if not product.category_ids:
                     continue
                 
-                # UBAH 4: Ambil 'categ_id' (ini bukan list, jadi tidak perlu [0])
-                category = product.categ_id
-                
-                # Siapkan data produk
+                # Siapkan data produk (hanya sekali per produk)
                 product_data = {
                     'id': product.id,
                     'name': product.name,
@@ -427,15 +446,21 @@ class DynamicDataController(http.Controller):
                     'image': '/web/image/product.template/%s/image_256' % product.id
                 }
                 
-                # Masukkan ke map
-                if category.id not in categories_map:
-                    categories_map[category.id] = {
-                        'category_id': category.id,
-                        'category_name': category.name,
-                        'products': []
-                    }
-                
-                categories_map[category.id]['products'].append(product_data)
+                # UBAH 3.4: Loop melalui SETIAP kategori yang dimiliki produk
+                # Ini adalah inti dari perubahan m2m (many-to-many)
+                for category in product.category_ids:
+                    
+                    # Masukkan ke map berdasarkan ID kategori
+                    if category.id not in categories_map:
+                        categories_map[category.id] = {
+                            'category_id': category.id,
+                            'category_name': category.name,
+                            'products': []
+                        }
+                    
+                    categories_map[category.id]['products'].append(product_data)
+            
+            # ===============================================================
             
             # Ubah map menjadi list (format JSON yang lebih baik)
             result = list(categories_map.values())
@@ -447,7 +472,7 @@ class DynamicDataController(http.Controller):
         except Exception as e:
             return { 'success': False, 'error': str(e) }
         
-
+    # ... (API 'get_department_functions' tidak berubah) ...
     @http.route('/api/get_department_functions', type='json', auth='public', website=True)
     def get_department_functions(self, department_id=0, **kwargs):
         """
