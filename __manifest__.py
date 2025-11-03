@@ -1,7 +1,6 @@
 {
     'name': 'Modul Halaman Kustom',
-    'version': '1.0',
-    # ...
+    'version': '1.0',    
     'author': 'Nama Anda',
     'website': 'https://website-anda.com',
     'category': 'Website',
@@ -12,21 +11,11 @@
         'hr',
     ],
     'data': [
-        'security/ir.model.access.csv', 
-        
+        'security/ir.model.access.csv',         
         'views/templates.xml',
-        'views/snippets.xml', 
-        
-        # ==============================================
-        # LANGKAH 3: TAMBAHKAN FILE XML HALAMAN DETAIL
-        # ==============================================
-        'views/department_page.xml',
-        # ==============================================
-        # AKHIR LANGKAH 3
-        # ==============================================
+        'views/snippets.xml',      
+        'views/department_page.xml',      
     ],
-    
-    # INI BAGIAN PENTING UNTUK ASET
     'assets': {
         'web.assets_frontend': [
             'custom_page_module/static/src/js/dynamic_snippet.js',
@@ -39,7 +28,6 @@
             'custom_page_module/static/src/xml/dynamic_content.xml',
         ],
     },
-
     'installable': True,
     'application': False,
     'auto_install': False,
